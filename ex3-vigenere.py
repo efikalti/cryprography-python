@@ -26,14 +26,10 @@ def freqDiff(frequencies):
 	for letter,value in frequencies.iteritems():
 		total = total + value
 	percent_freq = {}
-	freq = {}
 	for letter in listA:
 		percent_freq[letter] = 0
-		freq[letter] = 0
 	for letter in percent_freq:
 		percent_freq[letter] = (frequencies[letter]*100) / float(total)
-	for key,value in percent_freq.iteritems():
-		freq[key] = gr_freq[key] - value
 	return percent_freq
 
 def decryptMessage(message, key):
