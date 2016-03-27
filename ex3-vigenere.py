@@ -2,17 +2,23 @@
 # -*- coding: utf-8 -*-
 import sys
 
-listA = {u'Α': 1, u'Β': 2, u'Γ': 3, u'Δ': 4, u'Ε': 5, u'Ζ': 6, u'Η': 7, u'Θ': 8, u'Ι': 9, u'Κ': 10, u'Λ': 11, u'Μ': 12, u'Ν': 13, u'Ξ': 14, u'Ο': 15, u'Π': 16, u'Ρ': 17, u'Σ': 18, u'Τ': 19, u'Υ': 20, u'Φ': 21, u'Χ': 22, u'Ψ': 23, u'Ω': 0}
-listB = {1: u'Α', 2: u'Β', 3: u'Γ', 4: u'Δ', 5: u'Ε', 6: u'Ζ', 7: u'Η', 8: u'Θ', 9: u'Ι', 10: u'Κ', 11: u'Λ', 12: u'Μ', 13: u'Ν', 14: u'Ξ', 15: u'Ο', 16: u'Π', 17: u'Ρ', 18: u'Σ', 19: u'Τ', 20: u'Υ', 21: u'Φ', 22: u'Χ', 23: u'Ψ', 0: u'Ω'}
-gr_freq = {u'Α': 11.58, u'Β': 0.55, u'Γ': 1.72, u'Δ': 1.64, u'Ε': 8.23, u'Ζ': 0.27, u'Η': 5.01, u'Θ': 1.11, u'Ι': 9.52, u'Κ': 4.18, u'Λ': 2.78, u'Μ': 3.51, u'Ν': 6.18, u'Ξ': 0.35, u'Ο': 10.15, u'Π': 4.01, u'Ρ': 4.03, u'Σ': 7.63, u'Τ': 7.71, u'Υ': 4.22, u'Φ': 0.88, u'Χ': 0.46, u'Ψ': 0.16, u'Ω': 2.11}
-gr_IC=0.069
+listA = {u'A': 1, u'B': 2, u'C': 3, u'D': 4, u'E': 5, u'F': 6, u'G': 7, u'H': 8, u'I': 9, u'J': 10, u'K': 11, u'L': 12, u'M': 13, u'N': 14, u'O': 15, u'P': 16, u'Q': 17, u'R': 18, u'S': 19,
+		 u'T': 20, u'U': 21, u'V': 22, u'W': 23, u'X': 24, u'Y': 25, u'Z': 0}
+listB = {1: u'A', 2: u'B', 3: u'C', 4: u'D', 5: u'E', 6: u'F', 7: u'G', 8: u'H', 9: u'I', 10: u'J', 11: u'K',
+		 12: u'L', 13: u'M', 14: u'N', 15: u'O', 16: u'P', 17: u'Q', 18: u'R', 19: u'S',
+		 20: u'T', 21: u'U', 22: u'V', 23: u'W', 24: u'X', 25: u'Y', 0: u'Z'}
+gr_freq = {u'A': 8.16, u'B': 1.49, u'C': 2.78, u'D': 4.25, u'E': 12.7, u'F': 2.23, u'G': 2.01, u'H': 6.09, u'I': 6.96, u'J': 0.15, u'K': 0.77, u'L': 4.02, u'M': 2.4, u'N': 6.75, u'O': 7.5,
+		   u'P': 1.92, u'Q': 0.09, u'R': 5.98, u'S': 6.32, u'T': 9.05, u'U': 2.75, u'V': 0.97, u'W': 2.36, u'X': 0.15, u'Y': 1.97, u'Z': 0.07}
+gr_IC = 0.06
+
+letter_num = 26
 
 def printf(format, *args):
-	sys.stdout.write(format % args) 
+	sys.stdout.write(format % args)
 
 def IC(message, k):
 	sum = 0
-	for i in range(24):
+	for i in range(letter_num):
 		letter = listB[i]
 		appearences = 0
 		for j in range(k):
@@ -35,22 +41,24 @@ def freqDiff(frequencies):
 def decryptMessage(message, key):
 	decrypt = u''
 	j = 0
-	for i in range(len(message)):
+	for i in range(0, len(message)):
 		m = message[i]
 		k = key[j]
-		decrypt_num = (listA[m] - listA[k]) % 24
+		decrypt_num = (listA[m] - listA[k]) % letter_num
 		decrypt = decrypt + listB[decrypt_num]
 		j = j + 1
 		if j == len(key):
 			j = 0
+		if i == 1:
+			print k, m, decrypt_num
 	return decrypt
 
 def main():
-	message = u"ΕΝΠΠΧΙΦΤΔΛΠΞΝΑΒΧΛΟΨΙΟΓΖΩΠΖΓΓΔΚΑΚΑΑΝΜΦΕΔΟΡΑΤΒΔΩΥΟΩΙΝΥΗΑΠΡΜΩΔΥΨΠΡΕΡΟΛΕΝΑΤΤΑΙΤΤΡΡΡΟΛΕΝΑΤΓΑΚΛΣΗΑΛΩΑΛΦΡΗΣΝΨΛΟΥΨΔΑΔΛΚΓΑΑΗΙΚΨΨΙΜΟΔΥΨΖΖΘΑΔΧΩΓΛΘΥΙΛΝΞΛΣΙΖΖΒΚΛΒΣΚΤΙΑΙΝΣΓΛΔΕΙΝΣΒΟΔΧΙΝΣΖΦΨΦΨΙΙΨΖΥΓΞΕΕΚΡΦΝΕΔΗΒΟΛΟΞΩΑΛΕΟΡΓΖΑΩΡΕΘΜΩΤΟΨΙΑΒΚΩΗΚΦΑΤΨΟΛΧΝΩΨΜΗΔΟΔΗΞΟΙΠΕΘΑΤΔΛΟΨΣΝΓΘΧΩΧΝΗΑΦΥΙΕΔΚΓΣΤΖΖΒΠΨΖΘΥΦΨΘΖΧΟΛΕΝΑΤΕΙΙΑΔΩΨΘΥΚΟΦΝΚΧΡΩΗΑΓΗΘΥΓΟΒΗΙΖΚΖΔΥΓΤΝΤΖΨΔΔΤΚΧΥΤΖΜΛΘΣΣΤΙΗΙΖΚΠΣΝΑΤΩΚΠΦΟΟΑΧΙΔΛΡΔΕΘΥΙΤΙΧΤΒΜΗΑΑΡΓΖΑΗΛΑΡΠΧΙΣΤΙΓΕΘΥΙΡΞΜΑΕΠΖΓΝΦΗΣΕΩΨΙΦΨΔΕΛΣΝΕΑΓΑΩΚΑΝΓΣΑΒΦΙΚΤΛΑΓΟΙΘΝΘΤΖΧΨΑΙΙΑΚΤΟΔΕΧΟΔΟΧΦΤΦΗΒΡΓΤΛΒΑΙΟΓΦΜΠΥΝΟΒΗΣΖΑΔΣΑΜΚΡΝΠΨΔΛΣΛΕΚΑΔΖΟΚΑΣΧΨΘΜΜΟΛΧΡΖΙΝΣΓΛΒΧΤΜΑΤΤΣΝΜΧΣΚΡΜΘΜΜΥΝΤΙΧΤΒΣΚΡΒΙΤΥΗΖΓΡΖΤΕΕΚΡΦΗΤΟΥΚΡΓΝΤΔΛΠΥΤΡΓΛΤΧΥΙΩΨΛΤΖΨΝΝΞΜΟΓΛΒΤΨΓΒΩΑΥΤΠΣΝΩΔΟΔΛΘΣΜΟΑΡΓΣΦΨΑΦΦΤΣΛΒΛΥΝΜΧΧΥΤΙΙΑΛΕΩΔΝΡΗΦΕΩΛΟΡΚΒΣΚΡΥΤΖΣΣΥΥΙΑΨΓΥΔΤΣΓΞΛΗΥΖΕΘΓΣΜΠΔΒΧΕΩΡΖΖΒΧΤΒΑΕΟΒΗΙΝΣΙΥΝΙΝΘΜΠΔΓΡΚΘΛΛΥΙΦΤΒΣΨΛΦΓΖΣΣΚΟΝΨΤΟΙΙΕΙΔΨΚΙΙΔΨΗΨΚΟΑΛΡΝΚΘΤΩΔΥΤΠΣΝΥΔΖΕΨΒΑΦΑΥΝΜΜΕΚΡΦΝΗΑΡΟΒΡΝΚΒΟΗΑΤΘΤΙΟΚΡΦΡΚΒΔΥΩΡΓΝΩΤΠΘΑΡΓΣΖΖΧΙΖΝΧΤΧΨΣΝΕΘΣΛΨΟΧΤΒΤΧΨΝΘΦΧΝΥΤΙΚΣΚΙΙΛΔΗΨΛΤΩΔΙΕΨΜΕΙΡΚΦΤΑΑΑΖΑΦΤΚΧΧΔΝΦΜΜΗΦΚΟΧΤΒΟΒΛΠΝΠΣΘΖΖΦΗΙΣΕΘΑΩΨΤΖΟΑΛΡΗΙΚΑΤΤΨΙΣΖΟΓΛΒΡΟΧΡΠΨΩΦΙΓΟΔΕΙΤΓΦΙΠΡΕΘΜΩΑΛΕΘΑΝΡΝΥΗΝΘΛΧΣΥΚΦΠΓΣΛΠΦΝΦΝΩΝΑΛΤΓΜΝΝΧΕΘΑΤΖΘΘΚΩΜΗΦΙΠΦΙΨΨΒΤΧΨΩΝΦΓΟΙΧΡΝΤΦΕΒΗΨΖΞΖΗΚΡΦΡΗΘΤΧΕΙΓΕΡΝΓΛΒΝΔΘΜΠΥΡΝΞΜΗΚΡΒΗΓΥΜΧΡΕΜΗΩΜΖΖΕΗΤΖΕΩΔΓΝΤΝΤΩΛΝΧΤΜΟΓΧΔΕΓΡΝΠΨΠΕΣΙΩΔΛΩΡΕΙΙΙΧΝΑΣΖΓΛΨΙΦΔΡΝΗΛΡΠΓΡΝΗΑΔΡΓΖΑΩΣΔΩΤΜΑΥΨΨΖΜΝΣΚΡΥΝΝΘΣΗΑΔΒΨΚΕΩΧΨΑΙΖΑΡΛΒΝΗΒΖΥΤΣΝΓΖΑΜΖΤΝΔΒΖΥΤΙΥΣΘΥΙΛΦΥΛΡΠΖΖΒΖΨΣΥΚΑΔΖΚΘΥΓΟΙΧΙΝΝΥΦΝΜΖΩΝΠΒΝΨΚΒΖΥΔΓΡΑΜΩΘΤΦΤΖΣΣΤΖΒΗΞΟΙΠΞΝΑΨΒΝΠΤΩΝΛΣΤΖΒΝΕΤΛΜΠΕΟΖΚΔΕΖΨΝΒΓΣΣΑΛΡΗΑΛΣΑΦΟΕΙΜΗΚΛΒΡΔΧΙΔΚΦΔΙΝΦΖΜΨΘΗΜΑΩΕΟΑΚΚΟΖΞΨΗΙΝΑΔΣΑΜΚΘΥ"
-	
+	message = u"MYHSIFPFGIMUCEXIPRKHFFQPRVAGIDDVKVRXECSKAPFGHMESJWUSSEHNEZIXFFLPQDVTCEUGTEEMFRQXWYCLPPAMBSKSTTPGSMIDNSESZJBDWJWSPQYINUVRFXPVPCEOZQRBNLUIINSRPXLEEHKSTTPGCEIMCSKVVVTJQRBSIUCKJOIIXXOVHYEFLINOEXFDPZJVFKTETVFXTTVJVRTBXRVGJRAIFPSRGTDXYSIWYXWVFPAQSSEHNEZIXFVRXQPRURVWBXWVCEIMCSKVVVUCXYWJAAGPUHYIDTMJFFSYUSISMIDNSESRRPILVUFSPTEIHYMEGMTVRRPREEDISHXHVTFVQKIIMFRQILVKRCAUPZTVGMCFVTIIQPRUPVEGIMWICFGIAVVRZQASJHKLQLEPUIIQSLRGGSUHSESUQQCWJCLPEWEJPRVDXGRRVHFWINCIPPLMKVYEFTLRGXSAHIJHVTBTHLGZRFDQZGVVKPRUPCSASWYSUAQWEMSUIHTPFDVHEEIVRSYITLRJVWTJXFIIWQAZVGZRYPGYWEIDNXYOKKUKIJOSYZSEEQVLMHPVTKYEXRNOEXAJVBBFAXTHXSYEEBEUSLWONRZQRPAJVTZVZQGRVGJLMGHRBUYZZMERNIFWMEYKSABYTVRRPUIVZKSAAMKHCIYDVVHYEZBETVZRQGCNSEIQSLLARRUICDCIIFWEEQCIHTVESJWITRVSUOUCHESJWMCHXSEXXTRVGJAUILFIKXTTWVELEXXXZSJPUUINWCPNTZZCCIZIEERRPXLMCZSIXDWKHYIMTVFDCEZTEERKLQGEUWFLMKISFFYSWXLGTPAHIIHFKQILVFKLQKIIMEEFJVVCWXTTWVWEZQCXZCEWOGMVGFYFUSIHYISDSUBVWEXRDSEGDXIJCLXRDVLBZZQGWRZSVAILVFYSASJFFKLQJRZHPSRJWRZCIHTRECNQKKSZQVMEGIRQYMZVQZZCMACWKVISGVLFIKXTTAFFCHYXPCWFREDJUSJTMXVZBXQQCAFAVRMCHCWKXXTGYWCHDTRMWTXUBWFTRWKHXVAKLMIQRYVWYTRKCIXGGIRBUMYEVZGFRUCRFQVRFEIFDCIFDXYCJIIWSTOELQPVDSZWMNHFBFXPTWGOZVFWIDWJIDNXYOKMECSNIGSZJWZGSYFILVDRWEXRXCWKDTIUHYINXXKSIRQHWFTDIZLLFTVEDILVKRCAULLARRBGSXFVWEILVVRXQDJDSEAUAPGOJWMCHUWTXMISIGUMQPRUHYIBDAVFKLQNXFCBJDDQKVVTQDTCSNMXAVVHLVZISKVVTQDTCSRRPHSCCEKMHQVBUMQAMSSIXKLMCZEIHTVGSIMEWWFZUMQGWUCEXSXZVMFYDHICJVWFDFIIKIEBIEKYSPTWGWJIKDYVBJPMKIPCLATDVVUZQQCXPCLVXXZVGKIXACFINLMIXFRFATPXKCKLUCORBUATPXKCWIQAAYCUVUAPPCLHUTXPCLXDTEKMFYXXOVQRXFAILGVCAJEJQRRZDRWCUHQGHFBKKUKIPCLVETPMSJXAILVGVYZCEKIIEXBIEARGTXRVAVRIXXYARGTXRVAZRPHEERDEOWMESYIMGXJMFYMGIECKQMRLZBVWKDYRFVRAIGRHKPQNSLOIIYTRPCLLMKIKVVPAKIFTYYYPRZHPMZNSLFYIMGXJMFYPDRKVRXQDRCMKLQJRCCMIPWEKSKLQJRCCMIPPRUHYIGCRRHLVMAWFZUMQGWUCEXRXKYHWSDHPRJVVKUMXVKJAGPZPVVFNMEHYIETZVBKLOWEGHVVAUWKZLOQXXZGNVUIXVBKLQZMEUUSYDJXCUMELMKVZRYPRECKSZTQRBESDPKICLTAUQVBSYFXRRZCQQCMEMFYKDYKVVTQDTCSYEHTXYSGSITVKVVTALIIHFGDTEKSDEOWMESJXTTTFKVVFDGISRXQWEGDZRQHWPCLXTTTVCGPQWEMSKLQESNSIXABEBSKLUHPZTVJDTIRBUFQPYKWWYXISDOBIFWMJZZJQPAFBUIDUYCOUZQCXLFVXTTRZBKLQCEDSFJPTQFQIEONPVHLWGHIKVRXBDAVFCIFJWRZCYZXXVZVXGHJZUYXRDVRBVAIDVCRRHQRIEHNSDAHKVRXIXPCUZZQBIEOTLMCGVHFAAGOKVRXIXPCUZZQNSLHYERJXLFVEZSSCRRKQPWVQLVUICSMKLQEVFAZWQDJKVVWQILZBXWNGYKSJLMKIIWJIZISGCNIDQYKHYIKAMVHYIKSSECKJGAJZZKLMITICDMETXYSPRQKIIKZPXSMTHRXAGWWFVIFWIDGVPHTWSIKXTTCVBJPMKIKVVTQDTCSESIAIKIJJUVLKHFJGAJZZKLMITICDMETPVHLWRXKYHKSRGIVHYIIDVCRKSPDENOPAUILEOKMACECPRVDXIIGKSPDENOPAUILXFVIPLMKVYEFTEERZRFDPVFRROTPVHLWRXKYHWSDPAFFCHAUVVOJSZPAFFCHIWIISJGUTRTSRRPEVFUIIEHAZZCPQPHKCRPXBIEGYEBEMESJWEDPUWVVEXRKVVRMBIFTUIYDGIOTCXTXLGRPXJRZHV"
+
 	found = False
 	length = 1
-	n = 24
+	n = letter_num
 	k = len(message)
 
 	while found==False:
@@ -59,7 +67,7 @@ def main():
 		length = length + 1
 		for i in range(length):
 			j = 0
-			index = i+j*length 
+			index = i+j*length
 			while(index < k):
 				l.append(message[index])
 				j = j + 1
@@ -99,7 +107,7 @@ def main():
 			for l in listA:
 				letters[l] = 0
 			for i in range(len(part)):
-				decrypt = (listA[part[i]] - num) % 24
+				decrypt = (listA[part[i]] - num) % letter_num
 				letters[listB[decrypt]] = letters[listB[decrypt]] + 1
 			diff = freqDiff(letters)
 			frequencies[letter] = diff
@@ -111,6 +119,7 @@ def main():
 		print key,':'
 		for key,values in value.iteritems():
 			printf(key.encode('utf-8'))
+			print
 			for k,v in values.iteritems():
 				printf("[")
 				printf(k.encode('utf-8'))
@@ -120,7 +129,7 @@ def main():
 			print ""
 		print ""
 
-	decrypt = decryptMessage(message,u'ΣΡΩΟΚΘΜ')
+	decrypt = decryptMessage(message,u'DLODQNQ')
 	print "message:"
 	print decrypt.encode('utf-8')
 
