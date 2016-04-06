@@ -7,9 +7,9 @@ listA = {u'A': 1, u'B': 2, u'C': 3, u'D': 4, u'E': 5, u'F': 6, u'G': 7, u'H': 8,
 listB = {1: u'A', 2: u'B', 3: u'C', 4: u'D', 5: u'E', 6: u'F', 7: u'G', 8: u'H', 9: u'I', 10: u'J', 11: u'K',
 		 12: u'L', 13: u'M', 14: u'N', 15: u'O', 16: u'P', 17: u'Q', 18: u'R', 19: u'S',
 		 20: u'T', 21: u'U', 22: u'V', 23: u'W', 24: u'X', 25: u'Y', 0: u'Z'}
-gr_freq = {u'A': 8.16, u'B': 1.49, u'C': 2.78, u'D': 4.25, u'E': 12.7, u'F': 2.23, u'G': 2.01, u'H': 6.09, u'I': 6.96, u'J': 0.15, u'K': 0.77, u'L': 4.02, u'M': 2.4, u'N': 6.75, u'O': 7.5,
+en_freq = {u'A': 8.16, u'B': 1.49, u'C': 2.78, u'D': 4.25, u'E': 12.7, u'F': 2.23, u'G': 2.01, u'H': 6.09, u'I': 6.96, u'J': 0.15, u'K': 0.77, u'L': 4.02, u'M': 2.4, u'N': 6.75, u'O': 7.5,
 		   u'P': 1.92, u'Q': 0.09, u'R': 5.98, u'S': 6.32, u'T': 9.05, u'U': 2.75, u'V': 0.97, u'W': 2.36, u'X': 0.15, u'Y': 1.97, u'Z': 0.07}
-gr_IC = 0.06
+en_IC = 0.06
 
 letter_num = 26
 
@@ -79,7 +79,7 @@ def main():
 			for b in m:
 				part = part + b
 			ic = IC(part, len(part))
-			if ((gr_IC - ic) == 0 or (gr_IC - ic) < 0.01):
+			if ((en_IC - ic) == 0 or (en_IC - ic) < 0.01):
 				found = True
 
 	print 'We found the key legth,it is',length,'and we separated the message according to this legth.Resulting in these part messages:'
